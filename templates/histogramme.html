@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Histogramme dynamique</title>
+  <title>Histogramme des Températures</title>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
@@ -12,28 +12,31 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      // Récupérer les données dynamiquement depuis une API
+      // Récupérer les données dynamiquement depuis l'API
       fetch('/tawarano/')
         .then(response => response.json())
         .then(data => {
           // Préparer les données pour Google Charts
-          const chartData = [["Time of Day", "Motivation Level", "Energy Level"]];
+          const chartData = [["Time", "Temperature (°C)"]];
 
+          // Transformer les données JSON en tableau
           data.results.forEach(entry => {
             const time = new Date(entry.Jour * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            chartData.push([time, entry.motivation, entry.energy]);
+            chartData.push([time, entry.temp]);
           });
 
-          // Convertir en DataTable
+          // Convertir les données en DataTable
           const dataTable = google.visualization.arrayToDataTable(chartData);
 
-          // Options pour l'histogramme
+          // Définir les options du graphique
           const options = {
-            title: "Motivation and Energy Level Throughout the Day",
+            title: "Évolution des Températures au Fil du Temps",
+            hAxis: { title: "Heure" },
+            vAxis: { title: "Température (°C)" },
             width: 900,
             height: 500,
             bar: { groupWidth: "75%" },
-            legend: { position: "top" },
+            legend: { position: "none" },
           };
 
           // Dessiner le graphique
