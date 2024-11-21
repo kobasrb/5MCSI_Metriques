@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire de Contact</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contact-form {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .contact-form h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #4a90e2;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) inset;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+    }
+
+    .contact-form button {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: #357ab8;
+    }
+
+    .contact-form .message {
+      font-size: 14px;
+      color: #4caf50;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .contact-form .message.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-form">
+    <h1>Formulaire de Contact</h1>
+    <form id="contactForm">
+      <input type="text" id="nom" placeholder="Nom" required>
+      <input type="text" id="prenom" placeholder="Prénom" required>
+      <textarea id="message" rows="5" placeholder="Votre message..." required></textarea>
+      <button type="button" onclick="displayMessage()">Envoyer</button>
+    </form>
+    <p class="message" id="successMessage">Merci pour votre message ! 😊</p>
+  </div>
+
+  <script>
+    function displayMessage() {
+      // Simuler l'envoi et afficher un message de confirmation
+      const successMessage = document.getElementById('successMessage');
+      successMessage.classList.add('show');
+
+      // Réinitialiser les champs après un court délai
+      setTimeout(() => {
+        document.getElementById('contactForm').reset();
+        successMessage.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
