@@ -1,1 +1,49 @@
-<h1>histogramme</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Histogramme dynamique</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+  <div id="columnchart_values" style="width: 900px; height: 500px;"></div>
+  <script>
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      // Récupérer les données dynamiquement depuis une API
+      fetch('/tawarano/')
+        .then(response => response.json())
+        .then(data => {
+          // Préparer les données pour Google Charts
+          const chartData = [["Time of Day", "Motivation Level", "Energy Level"]];
+
+          data.results.forEach(entry => {
+            const time = new Date(entry.Jour * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            chartData.push([time, entry.motivation, entry.energy]);
+          });
+
+          // Convertir en DataTable
+          const dataTable = google.visualization.arrayToDataTable(chartData);
+
+          // Options pour l'histogramme
+          const options = {
+            title: "Motivation and Energy Level Throughout the Day",
+            width: 900,
+            height: 500,
+            bar: { groupWidth: "75%" },
+            legend: { position: "top" },
+          };
+
+          // Dessiner le graphique
+          const chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+          chart.draw(dataTable, options);
+        })
+        .catch(error => {
+          console.error("Erreur lors de la récupération des données :", error);
+        });
+    }
+  </script>
+</body>
+</html>
