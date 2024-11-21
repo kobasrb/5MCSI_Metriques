@@ -14,14 +14,10 @@
     }
     h1 {
       color: #333;
-      margin-bottom: 20px;
     }
     canvas {
-      max-width: 1000px; /* Augmentation de la largeur maximale */
-      max-height: 500px; /* Ajout d'une hauteur maximale */
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
+      max-width: 600px;
+      margin: 20px auto;
     }
   </style>
 </head>
@@ -77,47 +73,17 @@
           datasets: [{
             label: "Nombre de commits par minute",
             data: data,
-            backgroundColor: "rgba(75, 192, 192, 0.5)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgba(75, 192, 192, 1)",
             borderWidth: 1,
           }],
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false, /* Permet au graphique de s'agrandir selon la taille du canvas */
           scales: {
-            x: {
-              title: {
-                display: true,
-                text: "Minutes",
-                font: {
-                  size: 14
-                }
-              },
-            },
             y: {
               beginAtZero: true,
-              title: {
-                display: true,
-                text: "Nombre de Commits",
-                font: {
-                  size: 14
-                }
-              },
-              ticks: {
-                stepSize: 1, /* Les incréments sur l'axe Y */
-              }
             },
           },
-          plugins: {
-            legend: {
-              labels: {
-                font: {
-                  size: 14
-                }
-              }
-            }
-          }
         },
       });
     }
